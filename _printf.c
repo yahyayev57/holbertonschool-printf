@@ -1,10 +1,9 @@
 #include "main.h"
 
 /**
- * _printf - Produces output according to a format
- * @format: Character string containing format specifiers
- *
- * Return: Number of characters printed (excluding null byte)
+ * _printf - Custom printf function
+ * @format: Format string
+ * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
@@ -23,11 +22,12 @@ int _printf(const char *format, ...)
 			i++;
 			if (!format[i])
 				return (-1);
-
 			if (format[i] == 'c')
 				count += print_char(args);
 			else if (format[i] == 's')
 				count += print_string(args);
+			else if (format[i] == 'd' || format[i] == 'i')
+				count += print_int(args);
 			else
 				count += print_percent_or_fallback(format[i]);
 		}
