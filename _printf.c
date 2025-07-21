@@ -10,8 +10,6 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int i = 0, count = 0;
-	char *str;
-	char ch;
 
 	if (format == NULL)
 		return (-1);
@@ -25,35 +23,13 @@ int _printf(const char *format, ...)
 			i++;
 			if (!format[i])
 				return (-1);
+
 			if (format[i] == 'c')
-			{
-				ch = va_arg(args, int);
-				write(1, &ch, 1);
-				count++;
-			}
+				count += print_char(args);
 			else if (format[i] == 's')
-			{
-				str = va_arg(args, char *);
-				if (str == NULL)
-					str = "(null)";
-				while (*str)
-				{
-					write(1, str, 1);
-					str++;
-					count++;
-				}
-			}
-			else if (format[i] == '%')
-			{
-				write(1, "%", 1);
-				count++;
-			}
+				count += print_string(args);
 			else
-			{
-				write(1, "%", 1);
-				write(1, &format[i], 1);
-				count += 2;
-			}
+				count += print_percent_or_fallback(format[i]);
 		}
 		else
 		{
@@ -62,7 +38,6 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
-
 	va_end(args);
 	return (count);
 }
