@@ -1,0 +1,66 @@
+.TH _PRINTF 3 "July 2025" "Holberton School" "Custom Library Functions"
+
+.SH NAME
+_printf \- produces output according to a format
+
+.SH SYNOPSIS
+.B #include "main.h"
+.br
+int _printf(const char *format, ...);
+
+.SH DESCRIPTION
+The
+.B _printf()
+function produces output according to a format string, similarly to the standard
+.BR printf (3)
+function.
+
+This function writes its output to the standard output (stdout) and handles the following conversion specifiers:
+
+.TP
+.B %c
+Prints a single character.
+
+.TP
+.B %s
+Prints a null-terminated string.
+
+.TP
+.B %%
+Prints a percent sign.
+
+.TP
+.B %d, %i
+Prints a signed decimal integer.
+
+.PP
+Unsupported or unknown format specifiers are printed as-is, prefixed by a percent sign.
+Null string arguments are safely printed as
+.B "(null)".
+
+.SH RETURN VALUE
+Returns the total number of characters printed (excluding the null byte).  
+Returns \-1 on error (e.g., if
+.I format
+is NULL or an incomplete format is encountered).
+
+.SH EXAMPLES
+.nf
+_printf("Hello, %s\n", "world");
+  Output: Hello, world
+
+_printf("Value: %d\n", 42);
+  Output: Value: 42
+
+_printf("Show me a percent: %%%%\n");
+  Output: Show me a percent: %
+.fi
+
+.SH BUGS
+This simplified version does not handle flags, width, precision, or length modifiers.
+
+.SH AUTHOR
+Written by Holberton School students as part of the printf group project.
+
+.SH SEE ALSO
+.BR printf (3)
